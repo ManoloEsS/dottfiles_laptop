@@ -1,0 +1,19 @@
+/* TokyoNight Mocha Color Palette */
+@define-color bg         #1a1b26;
+@define-color fg         #c0caf5;
+@define-color red        #f7768e;
+@define-color orange     #ff9e64;
+@define-color yellow     #e0af68;
+@define-color green      #9ece6a;
+@define-color teal       #1abc9c;
+@define-color blue       #7aa2f7;
+@define-color purple     #bb9af7;
+@define-color magenta    #ff79c6;
+@define-color cyan       #7dcfff;
+@define-color comment    #565f89;
+@define-color dark_bg    #16161e;
+@define-color crust      #11111b;
+@define-color overlay0   #6c7086;
+@define-color overlay1   #7f849c;
+@define-color overlay2   #9399b2;
+
