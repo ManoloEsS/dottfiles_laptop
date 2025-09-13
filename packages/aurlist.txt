@@ -1,39 +1,21 @@
-aquamarine-git 0.8.0.r11.gdc45d00-1
-aquamarine-git-debug 0.8.0.r11.gdc45d00-1
-brave-bin 1:1.82.166-1
-crush-bin-debug 0.7.8-1
-epson-inkjet-printer-escpr 1.8.6-1
-epson-inkjet-printer-escpr-debug 1.8.6-1
-hyprcursor-git 0.1.12.r3.g45fcc10-1
-hyprcursor-git-debug 0.1.12.r3.g45fcc10-1
-hyprgraphics-git 0.1.4.r0.gb3d628d-1
-hyprgraphics-git-debug 0.1.4.r0.gb3d628d-1
-hyprland-git 0.49.0.r141.g90c8609-1
-hyprland-git-debug 0.49.0.r141.g90c8609-1
-hyprland-qt-support-git 0.1.0.r9.g4c8053c-1
-hyprland-qt-support-git-debug 0.1.0.r9.g4c8053c-1
-hyprland-qtutils-git 0.1.4.r2.gb13c748-1
-hyprland-qtutils-git-debug 0.1.4.r2.gb13c748-1
-hyprlang-git 0.6.3.r3.gcee0145-1
-hyprlang-git-debug 0.6.3.r3.gcee0145-1
-hyprutils-git 0.8.0.r3.g4737241-1
-hyprutils-git-debug 0.8.0.r3.g4737241-1
-hyprwayland-scanner-git 0.4.4.r5.gaa38edd-1
-hyprwayland-scanner-git-debug 0.4.4.r5.gaa38edd-1
-paru 2.1.0-1
-paru-debug 2.1.0-1
-quivira 4.1-1
-rofi-lbonn-wayland-git 1.7.9.wayland1.r1.gd4b16e6f-1
-rofi-lbonn-wayland-git-debug 1.7.9.wayland1.r1.gd4b16e6f-1
-ttf-symbola 14.00-2
-ventoy 1.1.07-1
-ventoy-debug 1.1.07-1
-wezterm-git 20250703.070941.c7f4b081-1
-wezterm-git-debug 20250703.070941.c7f4b081-1
-wl-gammarelay 0.1.3-1
-wl-gammarelay-debug 0.1.3-1
-yay 12.5.0-1
-yay-debug 12.5.0-1
-zen-browser-bin 1.15.5b-1
-zsh-completions-git 0.35.0.r216.ge07f6fb-1
-zsh-syntax-highlighting-git 0.8.0.r3.g5eb677b-1
+aquamarine-git
+brave-bin
+epson-inkjet-printer-escpr
+hyprcursor-git
+hyprgraphics-git
+hyprland-git
+hyprland-qt-support-git
+hyprland-qtutils-git
+hyprlang-git
+hyprutils-git
+hyprwayland-scanner-git
+quivira
+rofi-lbonn-wayland-git
+ttf-symbola
+ventoy
+wezterm-git
+wl-gammarelay
+yay
+zen-browser-bin
+zsh-completions-git
+zsh-syntax-highlighting-git

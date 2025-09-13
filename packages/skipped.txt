@@ -1,0 +1,6 @@
+amd-ucode
+grub
+linux
+linux-firmware
+paru
+paru-debug

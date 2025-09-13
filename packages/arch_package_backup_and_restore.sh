@@ -29,24 +29,51 @@ SKIP_PKGS=(
 
   # Bootloaders
   "grub" "systemd-boot-pacman-hook" "refind" "lilo"
+
+  # AUR helpers (we only keep yay)
+  "paru" "paru-debug"
 )
 
 backup() {
     echo "📦 Backing up package lists..."
 
-    pacman -Qqe > "$PKGLIST".tmp
+    # Explicitly installed packages (repo + AUR)
+    pacman -Qqe > "$PKGLIST".all
 
+    # Installed AUR packages
+    pacman -Qm > "$AURLIST".all
+
+    # Filter base + base-devel packages
     BASE_PKGS=$(comm -12 <(pacman -Qq | sort) <(pacman -Sgq base base-devel | sort))
 
-    grep -vxFf <(printf "%s\n" $BASE_PKGS "${SKIP_PKGS[@]}") "$PKGLIST".tmp > "$PKGLIST"
+    # Filter repo packages: remove base, skip list, AUR, and *-debug
+    grep -vxFf <(printf "%s\n" $BASE_PKGS "${SKIP_PKGS[@]}") "$PKGLIST".all \
+      | grep -vxFf <(pacman -Qm | awk '{print $1}') \
+      | grep -v -- '-debug$' \
+      > "$PKGLIST"
 
-    pacman -Qm > "$AURLIST"
+    # Filter AUR packages: remove helpers and *-debug
+    awk '{print $1}' "$AURLIST".all \
+      | grep -v -- '-debug$' \
+      | grep -vE '^(paru|yay-debug)$' \
+      > "$AURLIST"
 
-    rm "$PKGLIST".tmp
+    # Find skipped ones
+    comm -12 <(sort "$PKGLIST".all) <(printf "%s\n" $BASE_PKGS "${SKIP_PKGS[@]}" | sort -u) > skipped.txt
+
+    rm "$PKGLIST".all "$AURLIST".all
 
     echo "✅ Package lists saved:"
-    echo "  - $(wc -l < "$PKGLIST") pacman packages (user only) → $PKGLIST"
+    echo "  - $(wc -l < "$PKGLIST") pacman packages (repo only) → $PKGLIST"
     echo "  - $(wc -l < "$AURLIST") AUR packages                → $AURLIST"
+
+    if [[ -s skipped.txt ]]; then
+        echo "⚠️  Skipped packages:"
+        cat skipped.txt
+    else
+        echo "✅ No packages skipped."
+        rm skipped.txt
+    fi
 }
 
 restore() {

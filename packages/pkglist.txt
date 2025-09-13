@@ -4,7 +4,6 @@ base-devel
 bat
 blueman
 bluez-utils
-brave-bin
 brightnessctl
 btop
 btrfs-progs
@@ -15,7 +14,6 @@ curlie
 decibels
 efibootmgr
 epiphany
-epson-inkjet-printer-escpr
 evince
 exfatprogs
 fastfetch
@@ -69,7 +67,6 @@ gvfs-onedrive
 gvfs-smb
 gvfs-wsdd
 hypridle
-hyprland-git
 hyprlock
 hyprpaper
 hyprshot
@@ -103,8 +100,6 @@ otf-monaspace-nerd
 otf-opendyslexic-nerd
 otf-overpass-nerd
 pacman-contrib
-paru
-paru-debug
 pavucontrol
 pipewire
 pipewire-alsa
@@ -113,8 +108,6 @@ pipewire-pulse
 print-manager
 python-pip
 python-pipx
-quivira
-rofi-lbonn-wayland-git
 rygel
 simple-scan
 snapshot
@@ -177,7 +170,6 @@ ttf-roboto-mono-nerd
 ttf-sharetech-mono-nerd
 ttf-sourcecodepro-nerd
 ttf-space-mono-nerd
-ttf-symbola
 ttf-terminus-nerd
 ttf-tinos-nerd
 ttf-ubuntu-mono-nerd
@@ -185,24 +177,15 @@ ttf-ubuntu-nerd
 ttf-victor-mono-nerd
 ttf-zed-mono-nerd
 ufw
-ventoy
-virtualbox-host-modules-arch
 waybar
-wezterm-git
 wireplumber
 wl-clipboard
-wl-gammarelay
 woff2-font-awesome
 wofi
 xdg-desktop-portal-gnome
 xdg-user-dirs-gtk
-yay
-yay-debug
 yelp
-zen-browser-bin
 zoxide
 zram-generator
 zsh
 zsh-autosuggestions
-zsh-completions-git
-zsh-syntax-highlighting-git
