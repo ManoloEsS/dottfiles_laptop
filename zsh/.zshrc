@@ -221,3 +221,4 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/pl10k/.p10k.zsh.
 [[ ! -f ~/dotfiles/pl10k/.p10k.zsh ]] || source ~/dotfiles/pl10k/.p10k.zsh
 export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:$HOME/.local/opt/go/bin
