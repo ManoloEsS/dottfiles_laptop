@@ -4,3 +4,4 @@ linux
 linux-firmware
 paru
 paru-debug
+virtualbox-host-modules-arch

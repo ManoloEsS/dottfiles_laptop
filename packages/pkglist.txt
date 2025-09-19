@@ -1,3 +1,4 @@
+alsa-utils
 baobab
 base
 base-devel
@@ -105,6 +106,7 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+postgresql
 print-manager
 python-pip
 python-pipx
@@ -116,6 +118,7 @@ stow
 sushi
 swaync
 system-config-printer
+task
 tecla
 timeshift
 tldr
@@ -177,6 +180,7 @@ ttf-ubuntu-nerd
 ttf-victor-mono-nerd
 ttf-zed-mono-nerd
 ufw
+usbutils
 waybar
 wireplumber
 wl-clipboard
