@@ -17,6 +17,7 @@ curlie
 d-spy
 dconf-editor
 decibels
+difftastic
 efibootmgr
 endeavour
 epiphany
@@ -30,6 +31,7 @@ firefox
 fzf
 gdm
 ghex
+ghostty
 git
 git-filter-repo
 github-cli
