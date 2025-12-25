@@ -224,3 +224,4 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/dotfiles/pl10k/.p10k.zsh ]] || source ~/dotfiles/pl10k/.p10k.zsh
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.local/opt/go/bin
+GIT="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"
