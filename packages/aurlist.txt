@@ -1,13 +1,13 @@
-brave-bin
+docker-desktop
 epson-inkjet-printer-escpr
 nerdfetch
-postman-bin
 quivira
-rofi-lbonn-wayland-git
 ttf-symbola
 wezterm-git
 wl-gammarelay
-yay
+bluetui
 zen-browser-bin
+gazelle-tui
 zsh-completions-git
 zsh-syntax-highlighting-git
+zsh-theme-powerlevel10k-git

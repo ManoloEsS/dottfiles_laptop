@@ -1,12 +1,15 @@
 #!/bin/bash
-set -Eeuo pipefail
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 PKGLIST="pkglist.txt"
 AURLIST="aurlist.txt"
-LOGFILE="restore.log"
 
 SKIP_PKGS=(
   linux linux-lts linux-zen linux-hardened
+  virtualbox-host-modules-arch
   linux-firmware
   nvidia nvidia-dkms nvidia-utils nvidia-settings nvidia-lts
   xf86-video-amdgpu vulkan-radeon
@@ -14,71 +17,26 @@ SKIP_PKGS=(
   xf86-video-nouveau
   intel-ucode amd-ucode
   grub systemd-boot-pacman-hook refind lilo
-  paru paru-debug yay-debug
+  paru paru-debug
 )
 
-log() { echo -e "$@" | tee -a "$LOGFILE"; }
-
-ensure_keyring() {
-  if ! pacman-key --list-keys &>/dev/null; then
-    log "🔑 Initializing pacman keyring..."
-    sudo pacman-key --init
-    sudo pacman-key --populate archlinux
-    sudo pacman -Sy --noconfirm archlinux-keyring
-  fi
-}
-
-ensure_base_tools() {
-  log "🧰 Ensuring base-devel & git..."
-  sudo pacman -S --needed --noconfirm base-devel git
-}
-
-ensure_yay() {
-  if yay -Y --version &>/dev/null; then
-    log "✅ yay is available"
-    return
-  fi
-
-  log "📦 Installing yay..."
-  tmp=$(mktemp -d)
-  git clone https://aur.archlinux.org/yay.git "$tmp"
-  (cd "$tmp" && makepkg -si --noconfirm)
-  rm -rf "$tmp"
-}
-
-restore_repo_packages() {
-  [[ ! -f "$PKGLIST" ]] && return
-
-  log "📥 Installing repo packages..."
-
-  comm -12 \
-    <(sort "$PKGLIST") \
-    <(pacman -Slq | sort) \
-    | sudo pacman -S --needed --noconfirm - \
-    || log "⚠️ Some repo packages failed (see pacman output)"
-}
-
-restore_aur_packages() {
-  [[ ! -f "$AURLIST" ]] && return
-  [[ ! -s "$AURLIST" ]] && return
-
-  log "📥 Installing AUR packages..."
-  yay -S --needed --noconfirm - < "$AURLIST" \
-    || log "⚠️ Some AUR packages failed"
-}
-
 backup() {
-  log "📦 Backing up package lists..."
+  echo "📦 Backing up package lists..."
 
   pacman -Qqe > "$PKGLIST.all"
-  pacman -Qm > "$AURLIST.all"
+  pacman -Qm  > "$AURLIST.all"
 
-  BASE_PKGS=$(comm -12 \
-    <(pacman -Qq | sort) \
-    <(pacman -Sgq base base-devel | sort))
+  BASE_PKGS="$(comm -12 \
+    <(pacman -Qq 2>/dev/null | sort) \
+    <(pacman -Sgq base base-devel 2>/dev/null | sort) || true)"
 
-  grep -vxFf <(printf "%s\n" $BASE_PKGS "${SKIP_PKGS[@]}") "$PKGLIST.all" \
-    | grep -vxFf <(pacman -Qm | awk '{print $1}') \
+  {
+    printf "%s\n" $BASE_PKGS
+    printf "%s\n" "${SKIP_PKGS[@]}"
+  } | sort -u > /tmp/skip_all.txt
+
+  grep -vxFf /tmp/skip_all.txt "$PKGLIST.all" \
+    | grep -vxFf <(awk '{print $1}' "$AURLIST.all") \
     | grep -v -- '-debug$' \
     > "$PKGLIST"
 
@@ -87,43 +45,55 @@ backup() {
     | grep -vE '^(paru|yay-debug)$' \
     > "$AURLIST"
 
-  rm "$PKGLIST.all" "$AURLIST.all"
+  rm "$PKGLIST.all" "$AURLIST.all" /tmp/skip_all.txt
 
-  log "✅ Backup complete:"
-  log "  - $(wc -l < "$PKGLIST") repo packages"
-  log "  - $(wc -l < "$AURLIST") AUR packages"
+  echo "✅ Saved:"
+  echo "  - $PKGLIST"
+  echo "  - $AURLIST"
 }
 
 restore() {
-  : > "$LOGFILE"
-  log "🔄 Starting restore..."
+  local dryrun="${1:-}"
 
-  ensure_keyring
-  sudo pacman -Syu --noconfirm
-  ensure_base_tools
-  restore_repo_packages
-  ensure_yay
-  restore_aur_packages
+  if [[ "$dryrun" != "--dry-run" ]]; then
+    sudo pacman -Syu --noconfirm
+    sudo pacman -S --needed --noconfirm base-devel git
+  fi
 
-  log "✅ Restore finished"
-}
+  if [[ -f "$PKGLIST" ]]; then
+    sed '/^[[:space:]]*$/d' "$PKGLIST" > "$PKGLIST.clean"
+    if [[ "$dryrun" == "--dry-run" ]]; then
+      cat "$PKGLIST.clean"
+    else
+      sudo pacman -S --needed --noconfirm - < "$PKGLIST.clean"
+    fi
+    rm "$PKGLIST.clean"
+  fi
 
-dryrun() {
-  log "🔍 Dry run (repo packages that exist):"
-  comm -12 <(sort "$PKGLIST") <(pacman -Slq | sort)
+  if ! command -v yay &>/dev/null && [[ "$dryrun" != "--dry-run" ]]; then
+    tmpdir="$(mktemp -d)"
+    git clone https://aur.archlinux.org/yay.git "$tmpdir"
+    (cd "$tmpdir" && makepkg -si --noconfirm)
+    rm -rf "$tmpdir"
+  fi
 
-  log "🔍 AUR packages:"
-  cat "$AURLIST" 2>/dev/null || true
+  if [[ -f "$AURLIST" ]]; then
+    sed '/^[[:space:]]*$/d' "$AURLIST" > "$AURLIST.clean"
+    if [[ "$dryrun" == "--dry-run" ]]; then
+      cat "$AURLIST.clean"
+    else
+      yay -S --needed - < "$AURLIST.clean" || true
+    fi
+    rm "$AURLIST.clean"
+  fi
+
+  echo "✅ Restore complete"
 }
 
 case "${1:-}" in
   backup) backup ;;
   restore) restore ;;
-  restore-dry) dryrun ;;
-  *)
-    echo "Usage: $0 {backup|restore|restore-dry}"
-    exit 1
-    ;;
+  restore-dry) restore --dry-run ;;
+  *) echo "Usage: $0 {backup|restore|restore-dry}" ;;
 esac
-
 
