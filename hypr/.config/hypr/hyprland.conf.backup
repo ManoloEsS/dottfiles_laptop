@@ -44,15 +44,11 @@ $browser = zen-browser
 # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # Or execute your favorite apps at launch like this:
 
-# exec-once = zen-browser
+exec-once = zen-browser
 # exec-once = nm-applet &
 # exec-once = waybar & hyprpaper & firefox
 exec-once = waybar & swaync & hypridle & hyprpaper & hyprsunset
-
-# Fast workspace-specific initialization
-exec-once = $terminal -e fastfetch
-exec-once = $browser
-exec-once = workspace 1
+exec-once = sleep 2 && $terminal -e fastfetch
 # exec-once = export ELECTRON_ENABLE_FRACTIONAL_SCALING=true
 
 #############################
@@ -192,10 +188,6 @@ windowrule {
   match:float = 0
   match:workspace = f[1]
 }
-
-# Assign applications to specific workspaces
-windowrule = workspace 1, ^(wezterm)$
-windowrule = workspace 2, ^(zen-browser)$
 
 
 # See https://wiki.hypr.land/Configuring/Dwindle-Layout/ for more
