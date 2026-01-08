@@ -212,6 +212,8 @@ source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # To customize prompt, run `p10k configure` or edit ~/dottfiles_laptop/pl10k/.p10k.zsh.
 [[ ! -f ~/dottfiles_laptop/pl10k/.p10k.zsh ]] || source ~/dottfiles_laptop/pl10k/.p10k.zsh
