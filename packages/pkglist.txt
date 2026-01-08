@@ -20,7 +20,6 @@ decibels
 difftastic
 efibootmgr
 endeavour
-epiphany
 evince
 exfatprogs
 extra-cmake-modules
