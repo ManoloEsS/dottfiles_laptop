@@ -1,8 +1,2 @@
 downgrade
 ghostty
-hyprshot
-kernel-install-for-dracut
-networkmanager-dmenu
-spotify-launcher
-spotify-player
-spotifyd
