@@ -1,13 +1,8 @@
 docker-desktop
-epson-inkjet-printer-escpr
 nerdfetch
 quivira
-ttf-symbola
 wezterm-git
 wl-gammarelay
 bluetui
 zen-browser-bin
 gazelle-tui
-zsh-completions-git
-zsh-syntax-highlighting-git
-zsh-theme-powerlevel10k-git

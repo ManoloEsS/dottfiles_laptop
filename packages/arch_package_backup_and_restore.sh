@@ -6,6 +6,17 @@ cd "$SCRIPT_DIR"
 
 PKGLIST="pkglist.txt"
 AURLIST="aurlist.txt"
+FORCE_AUR_PKGS=(
+  docker-desktop
+  nerdfetch
+  quivira
+  wezterm-git
+  wl-gammarelay
+  bluetui
+  zen-browser-bin
+  gazelle-tui
+)
+
 
 SKIP_PKGS=(
   linux linux-lts linux-zen linux-hardened
@@ -77,15 +88,37 @@ restore() {
     rm -rf "$tmpdir"
   fi
 
-  if [[ -f "$AURLIST" ]]; then
-    sed '/^[[:space:]]*$/d' "$AURLIST" > "$AURLIST.clean"
-    if [[ "$dryrun" == "--dry-run" ]]; then
-      cat "$AURLIST.clean"
-    else
-      yay -S --needed - < "$AURLIST.clean" || true
+    if [[ -f "$AURLIST" ]]; then
+        echo "📥 AUR packages:"
+
+        sed '/^[[:space:]]*$/d' "$AURLIST" > "${AURLIST}.clean"
+
+        {
+            # packages from saved list
+            cat "${AURLIST}.clean"
+
+            # force-installed packages
+            printf "%s\n" "${FORCE_AUR_PKGS[@]}"
+        } | sort -u > "${AURLIST}.final"
+
+        if [[ "$dryrun" == "--dry-run" ]]; then
+            echo "AUR packages that would be installed:"
+            cat "${AURLIST}.final"
+        else
+            if [[ -s "${AURLIST}.final" ]]; then
+                echo "Installing $(wc -l < "${AURLIST}.final") AUR packages..."
+                yay -S --needed - < "${AURLIST}.final" || {
+                    echo "❌ Some AUR packages failed to install"
+                    echo "💡 Try installing individually:"
+                    sed 's/^/  /' "${AURLIST}.final"
+                }
+            else
+                echo "⚠️ No valid AUR packages found"
+            fi
+        fi
+
+        rm -f "${AURLIST}.clean" "${AURLIST}.final"
     fi
-    rm "$AURLIST.clean"
-  fi
 
   echo "✅ Restore complete"
 }
