@@ -5,10 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -159,9 +155,9 @@ bindkey '^Y' autosuggest-accept
 # ======================
 
 # History settings
+HISTFILE=~/.histfile
 HISTSIZE=5000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
+SAVEHIST=5000
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
@@ -189,9 +185,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
 setopt autocd
 unsetopt beep
 
@@ -215,13 +208,13 @@ alias tmc='/home/tlaloch/mooc/tmc-cli-rust-x86_64-unknown-linux-gnu-v1.1.2'
 export TMC_LANGS_CONFIG_DIR='/home/tlaloch/tmc-config'
 fpath=(/home/tlaloch/.local/share/tmc-autocomplete/_tmc  $fpath)
 compdef _tmc tmc
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/pl10k/.p10k.zsh.
-[[ ! -f ~/dotfiles/pl10k/.p10k.zsh ]] || source ~/dotfiles/pl10k/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit ~/dottfiles_laptop/pl10k/.p10k.zsh.
+[[ ! -f ~/dottfiles_laptop/pl10k/.p10k.zsh ]] || source ~/dottfiles_laptop/pl10k/.p10k.zsh
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.local/opt/go/bin
-GIT="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"
+# GIT token removed for security - use environment variables or credential manager instead
