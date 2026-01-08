@@ -5,7 +5,6 @@ postman-bin
 quivira
 rofi-lbonn-wayland-git
 ttf-symbola
-ventoy
 wezterm-git
 wl-gammarelay
 yay
