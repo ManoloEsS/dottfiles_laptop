@@ -46,18 +46,6 @@ duf
 e2fsprogs
 efibootmgr
 efitools
-endeavour
-endeavouros-branding
-endeavouros-keyring
-endeavouros-mirrorlist
-eos-apps-info
-eos-hooks
-eos-log-tool
-eos-packagelist
-eos-qogir-icons
-eos-quickstart
-eos-rankmirrors
-eos-settings-gnome
 ethtool
 evince
 exfatprogs
@@ -85,8 +73,6 @@ go
 gobject-introspection
 gparted
 gptfdisk
-greetd
-greetd-tuigreet
 grilo-plugins
 gsfonts
 gst-libav
@@ -341,7 +327,6 @@ xorg-xkill
 xorg-xrandr
 xorg-xwayland
 xterm
-yay
 yazi
 yelp
 zoxide

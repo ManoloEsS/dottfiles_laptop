@@ -7,8 +7,10 @@ echo "==> Installing packages"
 
 if ! command -v yay &>/dev/null; then
   echo "Installing yay"
-  git clone https://aur.archlinux.org/yay.git /tmp/yay
-  (cd /tmp/yay && makepkg -si --noconfirm)
+  tmpdir="$(mktemp -d)"
+  git clone https://aur.archlinux.org/yay.git "$tmpdir"
+  (cd "$tmpdir" && makepkg -si --noconfirm)
+  rm -rf "$tmpdir"
 fi
 
 cd "$DOTFILES/packages"

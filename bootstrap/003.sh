@@ -4,6 +4,21 @@ set -euo pipefail
 DOTFILES="$HOME/dottfiles_laptop"
 STOW_DIRS=(fontconfig hypr pl10k tmux waybar wezterm wofi zsh)
 
+# Warn about potential stow conflicts
+echo "⚠️  Checking for conflicting files..."
+for dir in "${STOW_DIRS[@]}"; do
+  if [[ -d "$DOTFILES/$dir" ]]; then
+    while IFS= read -r -d '' file; do
+      target="${file#$DOTFILES/$dir}"
+      if [[ -e "$HOME$target" ]] && [[ ! -L "$HOME$target" ]]; then
+        echo "⚠️  Conflict: $HOME$target exists (will be backed up)"
+        mkdir -p "$HOME/.dotfiles_backup"
+        mv "$HOME$target" "$HOME/.dotfiles_backup/$(basename "$target").$(date +%s)"
+      fi
+    done < <(find "$DOTFILES/$dir" -type f -print0 2>/dev/null)
+  fi
+done
+
 echo "==> Setting up user environment"
 
 # --------------------------------------------------------------------

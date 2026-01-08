@@ -67,21 +67,28 @@ restore() {
   local dryrun="${1:-}"
 
   if [[ "$dryrun" != "--dry-run" ]]; then
+    echo "📦 Updating system..."
     sudo pacman -Syu --noconfirm
     sudo pacman -S --needed --noconfirm base-devel git
   fi
 
   if [[ -f "$PKGLIST" ]]; then
+    echo "📥 Installing official packages..."
     sed '/^[[:space:]]*$/d' "$PKGLIST" > "$PKGLIST.clean"
     if [[ "$dryrun" == "--dry-run" ]]; then
       cat "$PKGLIST.clean"
     else
-      sudo pacman -S --needed --noconfirm - < "$PKGLIST.clean"
+      # Install with --needed to skip already installed packages
+      sudo pacman -S --needed --noconfirm - < "$PKGLIST.clean" || {
+        echo "⚠️  Some packages failed to install (may not exist in vanilla Arch)"
+        echo "💡 Continuing with AUR packages..."
+      }
     fi
     rm "$PKGLIST.clean"
   fi
 
   if ! command -v yay &>/dev/null && [[ "$dryrun" != "--dry-run" ]]; then
+    echo "📥 Installing yay AUR helper..."
     tmpdir="$(mktemp -d)"
     git clone https://aur.archlinux.org/yay.git "$tmpdir"
     (cd "$tmpdir" && makepkg -si --noconfirm)

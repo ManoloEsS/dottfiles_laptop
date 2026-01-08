@@ -10,7 +10,7 @@ fi
 
 sudo -v
 
-BASE_PKGS=(git stow zsh curl)
+BASE_PKGS=(git stow zsh curl base-devel)
 
 for pkg in "${BASE_PKGS[@]}"; do
   if ! command -v "$pkg" &>/dev/null; then
