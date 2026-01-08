@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DOTFILES="$HOME/dotfiles_arch_hypr"
+DOTFILES="$HOME/dottfiles_laptop"
 
 echo "==> Installing packages"
 

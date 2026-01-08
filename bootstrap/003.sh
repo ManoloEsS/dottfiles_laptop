@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DOTFILES="$HOME/dotfiles_arch_hypr"
+DOTFILES="$HOME/dottfiles_laptop/"
 STOW_DIRS=(fontconfig hypr pl10k tmux waybar wezterm wofi zsh)
 
 echo "==> Setting up user environment"
