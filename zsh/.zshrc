@@ -4,7 +4,11 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
+# Auto-rebuild gitstatus if missing
+if [[ ! -f ~/.oh-my-zsh/custom/themes/powerlevel10k/gitstatus/usrbin/gitstatusd ]]; then
+  echo "⚠️  Rebuilding gitstatus..."
+  ~/. oh-my-zsh/custom/themes/powerlevel10k/gitstatus/build -w
+fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
