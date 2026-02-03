@@ -1,3 +1,9 @@
+# Run fastfetch once per terminal (safe for p10k/gitstatus)
+if [[ -t 1 && -z "$FASTFETCH_SHOWN" ]]; then
+  export FASTFETCH_SHOWN=1
+  fastfetch
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -224,3 +230,11 @@ source <(fzf --zsh)
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.local/opt/go/bin
 # GIT token removed for security - use environment variables or credential manager instead
+# Terminal-only keychain for SSH agent
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval $(keychain --eval ~/.ssh/dev)
+fi
+
+
+# opencode
+export PATH=/home/tlaloch/.opencode/bin:$PATH

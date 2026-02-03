@@ -13,10 +13,16 @@ config.hide_tab_bar_if_only_one_tab = true
 config.enable_tab_bar = true
 config.window_background_opacity = 0.93
 
+config.window_padding = {
+	left = "0.3cell",
+	right = "0cell",
+	top = "0cell",
+	bottom = "0cell",
+}
 -- Font fallback list for missing glyphs:
 config.keys = {
 	{ key = "-", mods = "CTRL", action = wezterm.action.DecreaseFontSize },
 }
-term = "xterm-256color"
+config.term = "xterm-256color"
 -- and finally, return the configuration to wezterm
 return config
