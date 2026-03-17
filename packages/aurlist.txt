@@ -1,6 +1,9 @@
 docker-desktop
 gazelle-tui
+google-breakpad
 nerdfetch
+noctalia-qs
+noctalia-shell
 quivira
 ttf-meslo-nerd-font-powerlevel10k
 wezterm-git
